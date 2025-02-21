@@ -1,2 +1,2 @@
 # Anime-website
-You add your fev  anime in list  also you can add manga 
+You  can add your fev  anime in list and  also you can add manga 
