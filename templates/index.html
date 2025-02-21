@@ -1,0 +1,71 @@
+{%extends 'base.html' %}
+
+
+{% block title %}Zero Anime{% endblock %}
+
+{% block  content %}
+
+<!-- body -->
+<!-- 
+<div class="container">
+  <h1 class="heading">Your fev Anime </h1>
+  <p class="description">These are Your's all-time favourite Animes.</p>
+  {%for anime in anime_list %}
+  <div class="card" >
+    <div class="front" style="background-image: url('{{anime.img_url}}');">
+        <p class="large">{{anime.ranking}}</p>
+    </div>
+    <div class="back">
+      <div>
+    <div class="title">{{anime.title}}<span class="release_date">({{anime.year}})</span></div>
+        <div class="rating">
+            <label>{{anime.rating}}</label>
+          <i class="fas fa-star star"></i>
+        </div>
+          <p class="review">{{anime.review}}</p>
+        <p class="overview">
+            {{anime.description}}
+        </p>
+
+        <a href="{{url_for('delete',id=anime.id)}}" class="button delete-button">Delete</a>
+        
+      </div>
+    </div>
+  </div>
+  {%endfor%}
+</div>  -->
+
+<div class="container anime-list">
+  <h1 class="heading">Your Favorite Anime</h1>
+  <p class="description">These are your all-time favorite anime.</p>
+  
+  <div class="anime-row">
+    {% for anime in anime_list %}
+    <div class="card">
+      <div class="front" style="background-image: url('{{ anime.img_url }}');">
+        <p class="large">{{ anime.ranking }}</p>
+      </div>
+      <div class="back">
+        <div>
+          <div class="title">{{ anime.title }} <span class="release_date">({{ anime.year }})</span></div>
+          <div class="rating">
+            <label>{{ anime.rating }}</label>
+            <i class="fas fa-star star"></i>
+          </div>
+          <p class="review">{{ anime.review }}</p>
+          <p class="overview">{{ anime.description }}</p>
+          <a href="https://hianime.to/search?keyword={{anime.title}}" class="button Update-button">Watch</a>
+          <a href="{{ url_for('delete', id=anime.id) }}" class="button delete-button">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- <div class="container text-center add">
+<a href="{{url_for('add')}}" class="button">Add Ainme</a>
+</div> -->
+
+{% endblock %}

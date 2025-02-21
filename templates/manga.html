@@ -1,0 +1,37 @@
+{%extends 'base.html' %}
+
+
+{% block title %}Zero Anime{% endblock %}
+
+{% block  content %}
+
+<!-- body -->
+
+<div class="container anime-list">
+  <h1 class="heading">Your Favorite Manga</h1>
+  <p class="description">These are your all-time favorite Manga.</p>
+  {%for manga in manga_list%}
+  <div class="anime-row">
+    <div class="card">
+      <div class="front" style="background-image: url('{{manga.img_url}}');">
+        <p class="large">{{manga.ranking}}</p>
+      </div>
+      <div class="back">
+        <div>
+          <div class="title">{{manga.title}}<span class="release_date">({{manga.year}})</span></div>
+          <div class="rating">
+            <label>{{manga.rating}}</label>
+            <i class="fas fa-star star"></i>
+          </div>
+          <p class="review"></p>
+          <p class="overview">{{manga.description}}</p>
+          <a href="https://mangafire.to/filter?keyword={{manga.title}}" class="button Update-button">Read</a>
+          <a href="{{url_for('manga_delete',id=manga.id)}}" class="button delete-button">Delete</a>  
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+
+</div>
+{% endblock %}

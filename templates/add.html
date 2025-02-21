@@ -1,0 +1,12 @@
+{%extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{%block  content %}
+
+<div class= "content">
+    <h1 class='heading'> Add  Fev Anime </h1>
+    {{render_form(form,novalidate=True)}}
+    {#"The form submits no matter what, even if fields are empty or wrong.
+    The backend (Flask) will check if the input is correct instead of the browser." #}  
+</div>
+
+{%endblock%}
