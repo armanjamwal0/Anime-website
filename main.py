@@ -14,7 +14,7 @@ CLIENT_ID = "d33fc7d9aa6569889a1fc893131eee85" #anime website api
 
 headers = {
         "X-MAL-CLIENT-ID": CLIENT_ID  # Authentication header
-    }
+}
 
 
 # anime api url 
