@@ -1,6 +1,6 @@
 from flask import Flask , redirect, render_template , url_for, request , make_response, flash , abort
 from flask_bootstrap import Bootstrap5
-from sqlalchemy import INTEGER, String , Float
+from sqlalchemy import INTEGER, String , Float , Text
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase , Mapped, mapped_column ,relationship
 import requests
@@ -8,9 +8,20 @@ from form import Add_Anime, ADD_Manga , RegisterForm , LoginForm
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, login_user, LoginManager, current_user, logout_user , login_required
+from flask_migrate import Migrate
 import random
+from dotenv import load_dotenv
+import os
+
+
+
+
+load_dotenv()
+
+
+
 #api
-CLIENT_ID = "d33fc7d9aa6569889a1fc893131eee85" #anime website api
+CLIENT_ID = os.getenv('Anime_key') #anime website api
 
 headers = {
         "X-MAL-CLIENT-ID": CLIENT_ID  # Authentication header
@@ -26,7 +37,8 @@ Manga_url = "https://api.jikan.moe/v4/manga"
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.getenv('Flask_key') # hear create a flask key go to the chat gpt and search for create a flask key and here
+
 Bootstrap5(app)
 
 #here i can add flask_login class to add some advance feature in login page or register page that can user need details to login in website
@@ -39,44 +51,49 @@ class base(DeclarativeBase):
     pass
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///Manga_Anime-database.db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///Manga_Anime-database.db"
+
+# here i can use pgadmin 4 for database 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DB_URL') # you can add here your own database connect to pgadmin4 
+
 
 db = SQLAlchemy(model_class=base)
-
+# here i can use migrate for migration database like manage database using migration it time to time update database 
+migrate = Migrate(app, db)  # Add migration support
 db.init_app(app)
 
 # creating table from  sqlalchemy 
 class Anime_table(db.Model):
     __tablename__ = 'Animetable'
     id: Mapped[int] = mapped_column(INTEGER, primary_key=True)
-    #here i crteate a relationship but i don't know properly how is this work 
+    #here i create a relationship but i don't know properly how is this work 
     user_id : Mapped[int] = mapped_column(INTEGER, db.ForeignKey('users.id'), nullable=False)
     user = relationship('User',back_populates='anime_list')
     
     
     title: Mapped[str] = mapped_column(String(250), nullable=False)
     year: Mapped[int] = mapped_column(INTEGER, nullable=False)
-    description: Mapped[str] = mapped_column(String(500),nullable=False)
+    description: Mapped[str] = mapped_column(Text,nullable=False)
     rating: Mapped[float] = mapped_column(Float,nullable=False)
     ranking: Mapped[int] = mapped_column(INTEGER, nullable=False)
-    img_url: Mapped[str] = mapped_column(String(250),nullable=False)
+    img_url: Mapped[str] = mapped_column(String(500),nullable=False)
 
 
     
 class Manga_table(db.Model):
     __tablename__  = 'Mangatable'
     id :Mapped[int] = mapped_column(INTEGER,primary_key=True)
-    #here i crteate a relationship but i don't know properly how is this work 
+    
     user_id : Mapped[int] = mapped_column(INTEGER,db.ForeignKey('users.id'), nullable=False)
     user = relationship('User',back_populates='manga_list')
     
     
     title: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
     year: Mapped[int] = mapped_column(INTEGER, nullable=False)
-    description: Mapped[str] = mapped_column(String(500),nullable=False)
+    description: Mapped[str] = mapped_column(Text,nullable=False)
     rating: Mapped[float] = mapped_column(Float,nullable=False)
     ranking: Mapped[int] = mapped_column(INTEGER, nullable=False)
-    img_url: Mapped[str] = mapped_column(String(250),nullable=False)
+    img_url: Mapped[str] = mapped_column(String(500),nullable=False)
     
     
 
