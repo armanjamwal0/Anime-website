@@ -13,7 +13,7 @@
 # database updates automatically.
 
 
-# adn if you want to search more adout migartion folder then you can search on google 
+# and if you want to search more adout migartion folder then you can search on google 
 
 
 #You can create migartion folder 
