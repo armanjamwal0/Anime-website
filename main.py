@@ -339,7 +339,7 @@ def find_manga():
         data = response.json().get('data',[])
         new_manga = Manga_table(
             title=data.get('title_english', data.get('title', 'Unknown')),# like if title english does'nt exist then for backup we are going with title 
-            year=data.get('aired', {}).get('prop', {}).get('from', {}).get('year', 'Unknown'),# this line are nested i don't know this line i get this line from chatgpt 
+            year=data.get('aired', {}).get('prop', {}).get('from', {}).get('year',0),# this line are nested i don't know this line i get this line from chatgpt 
             description=data.get('synopsis', 'No description available'),
             img_url=data.get('images', {}).get('jpg', {}).get('large_image_url', ''),
             rating=data.get('score', 0),
