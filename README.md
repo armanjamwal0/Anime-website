@@ -1,6 +1,9 @@
 #---------------------------------------------------------------------------------------------------
 #_----------------------------------- Flask_Migartion______________________________________________
-# i use Flask_Migration library -> for it change schema  without datalose like that when you change 
+
+Flask Migration 
+
+# i use Flask_Migration library -> for it change schema  without lose database data like that when you change 
 # your models (like adding row or removing collumns) it update without lose your data 
 
 #2>#Version Control for Database
@@ -13,7 +16,7 @@
 # database updates automatically.
 
 
-# adn if you want to search more adout migartion folder then you can search on google 
+# and if you want to search more about migartion folder then you can search on google 
 
 
 #You can create migartion folder 
